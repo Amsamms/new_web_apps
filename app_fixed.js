@@ -778,6 +778,12 @@ function closeThankYouModal() {
 document.addEventListener('DOMContentLoaded', function() {
   console.log('DOM loaded, initializing app...');
   
+  // Ensure page starts at top and enable smooth scrolling after load
+  window.scrollTo(0, 0);
+  setTimeout(() => {
+    document.documentElement.classList.add('loaded');
+  }, 100);
+  
   // Initialize chatbot
   const chatbot = new WebAppsChatbot();
   
