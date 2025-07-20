@@ -1,3 +1,8 @@
 {
-    "liveServer.settings.port": 5647
+    "liveServer.settings.port": 8080,
+    "liveServer.settings.donotShowInfoMsg": true,
+    "liveServer.settings.donotVerifyTags": true,
+    "liveServer.settings.host": "localhost",
+    "liveServer.settings.CustomBrowser": "chrome",
+    "liveServer.settings.fullReload": false
 }
