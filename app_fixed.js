@@ -9,8 +9,9 @@ class WebAppsChatbot {
   constructor() {
     this.useDemoMode = false;
     this.useMinistralAPI = true;
-    this.apiKey = 'mnmKw0OPPoClTcjqaOpJDGO4ZLJLH93M';
-    this.apiUrl = 'https://api.mistral.ai/v1/chat/completions';
+    // Requests go through a serverless proxy so the Mistral API key
+    // never ships to the browser (see landing-page-chat-proxy).
+    this.apiUrl = 'https://landing-page-chat-proxy.vercel.app/api/chat';
     this.model = 'ministral-3b-2410';
     this.isTyping = false;
     this.requestCount = 0;
@@ -444,10 +445,6 @@ class WebAppsChatbot {
   }
 
   async callMinistralAPI(userMessage) {
-    if (!this.apiKey || this.apiKey === 'YOUR_MISTRAL_API_KEY_HERE') {
-      throw new Error('Ministral API key not configured');
-    }
-
     const htmlContent = this.getPageContent();
     
     const systemPrompt = `You are the "Web Apps Assistant" for this portfolio. You can ONLY answer questions about the specific apps listed in the HTML content below.
@@ -484,8 +481,7 @@ Remember: You are an assistant for THIS specific portfolio only. Stay focused on
       const response = await fetch(this.apiUrl, {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.apiKey}`
+          'Content-Type': 'application/json'
         },
         body: JSON.stringify(requestBody)
       });
